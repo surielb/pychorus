@@ -10,6 +10,7 @@ setup(
   download_url = 'https://github.com/vivjay30/pychorus/archive/0.1.tar.gz', # I'll explain this in a second
   keywords = ['Chorus', 'Audio Signal Processing', 'Music'], # arbitrary keywords
   install_requires=[
+    'numba==0.48',
     'librosa',
     'numpy',
     'scipy',
