@@ -2,7 +2,7 @@ import librosa
 import numpy as np
 import scipy.signal
 import soundfile as sf
-
+import json
 
 from pychorus.similarity_matrix import TimeTimeSimilarityMatrix, TimeLagSimilarityMatrix, Line
 from pychorus.constants import N_FFT, SMOOTHING_SIZE_SEC, LINE_THRESHOLD, MIN_LINES, \
@@ -182,8 +182,12 @@ def find_and_output_chorus(input_file, output_file, clip_length=15):
         chorus_start // 60, chorus_start % 60))
 
     if output_file is not None:
-        chorus_wave_data = song_wav_data[int(chorus_start*sr) : int((chorus_start+clip_length)*sr)]
-        sf.write(output_file, chorus_wave_data, sr)
-        #librosa.output.write_wav(output_file, chorus_wave_data, sr)
+        if output_file.endswith(".json"):
+            with open(output_file, 'w') as json_file:
+                json.dump({"start":chorus_start,"length": clip_length}, json_file)
+        else:
+            chorus_wave_data = song_wav_data[int(chorus_start*sr) : int((chorus_start+clip_length)*sr)]
+            sf.write(output_file, chorus_wave_data, sr)
+            #librosa.output.write_wav(output_file, chorus_wave_data, sr)
 
     return chorus_start
