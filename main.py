@@ -20,6 +20,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--min_clip_length",
         default=15,
+        type=int,
         help="Minimum length (in seconds) to be considered a chorus")
 
     main(parser.parse_args())
